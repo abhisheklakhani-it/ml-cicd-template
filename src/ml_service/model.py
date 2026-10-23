@@ -44,7 +44,8 @@ class ModelBundle:
                     "label": self.class_names[best],
                     "confidence": round(float(p[best]), 4),
                     "probabilities": {
-                        name: round(float(v), 4) for name, v in zip(self.class_names, p, strict=True)
+                        name: round(float(v), 4)
+                        for name, v in zip(self.class_names, p, strict=True)
                     },
                 }
             )
