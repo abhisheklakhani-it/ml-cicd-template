@@ -50,6 +50,8 @@ Docker base image; CI tests each one before you merge it.
 
 Measured on 24 Oct 2026 (local: Apple M2, Docker Desktop; CI: GitHub-hosted `ubuntu-latest`).
 
+![CI and release job timeline: five CI jobs run in parallel and finish in 1 min 36 s; the coverage job waits for the tests; the release takes 4 min 31 s](docs/ci-timeline.png)
+
 | | Result |
 |---|---|
 | Tests | 14, 100% line and branch coverage |
