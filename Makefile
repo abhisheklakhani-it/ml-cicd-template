@@ -21,7 +21,7 @@ test:
 check: lint typecheck test  ## everything CI runs
 
 train:
-	uv run python -m ml_service.model --out models/model.joblib
+	uv run python -m ml_service.train --out models/model.joblib
 
 serve: train
 	uv run uvicorn ml_service.app:app --reload

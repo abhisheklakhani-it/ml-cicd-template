@@ -7,8 +7,6 @@ CI/CD pipeline stay the same.
 
 from __future__ import annotations
 
-import argparse
-import json
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -91,16 +89,3 @@ def load(path: Path) -> ModelBundle:
     if not isinstance(bundle, ModelBundle):
         raise TypeError(f"{path} does not contain a ModelBundle")
     return bundle
-
-
-def main() -> None:
-    parser = argparse.ArgumentParser(description="Train the model and save it.")
-    parser.add_argument("--out", type=Path, default=Path("models/model.joblib"))
-    args = parser.parse_args()
-    bundle = train()
-    save(bundle, args.out)
-    print(json.dumps({"saved": str(args.out), **bundle.metrics}))
-
-
-if __name__ == "__main__":
-    main()

@@ -1,11 +1,14 @@
 from __future__ import annotations
 
+import subprocess
+import sys
 from pathlib import Path
 
 import joblib
 import pytest
 
-from ml_service.model import ModelBundle, load, load_data, main, train
+from ml_service.model import ModelBundle, load, load_data, train
+from ml_service.train import main
 
 
 def test_quality_gate(bundle: ModelBundle) -> None:
@@ -47,4 +50,21 @@ def test_cli_writes_model(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> No
     out = tmp_path / "m.joblib"
     monkeypatch.setattr("sys.argv", ["train", "--out", str(out)])
     main()
+    assert load(out).metrics["accuracy"] >= 0.9
+
+
+def test_cli_quality_gate_blocks_bad_model(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    out = tmp_path / "m.joblib"
+    monkeypatch.setattr("sys.argv", ["train", "--out", str(out), "--min-accuracy", "1.01"])
+    with pytest.raises(SystemExit, match="below --min-accuracy"):
+        main()
+    assert not out.exists()
+
+
+def test_model_from_cli_loads_in_another_process(tmp_path: Path) -> None:
+    # Train exactly as the Dockerfile does, then load in this process.
+    out = tmp_path / "m.joblib"
+    subprocess.run(  # noqa: S603
+        [sys.executable, "-m", "ml_service.train", "--out", str(out)], check=True
+    )
     assert load(out).metrics["accuracy"] >= 0.9
