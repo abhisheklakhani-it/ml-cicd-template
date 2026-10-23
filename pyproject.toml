@@ -55,6 +55,7 @@ addopts = "-q --strict-markers"
 [tool.coverage.run]
 source = ["ml_service"]
 branch = true
+relative_files = true  # needed by the coverage badge action
 
 [tool.coverage.report]
 fail_under = 90
