@@ -57,6 +57,9 @@ Measured on 24 Oct 2026 (local: Apple M2, Docker Desktop; CI: GitHub-hosted `ubu
 | Trivy, CRITICAL/HIGH with a fix | 0 (Debian 13 base and Python packages) |
 | zizmor (pedantic) | 0 findings |
 | Model test accuracy | 1.00 on 45 held-out samples (the wine dataset is easy; see limitations) |
+| CI run (6 jobs in parallel) | 1 min 36 s wall time; lint 18 s, tests 17–42 s, Docker build + smoke test + Trivy 1 min 36 s |
+| Release run (v0.1.0) | 4 min 31 s: amd64 + arm64 image, SBOM and provenance attestations, Trivy, GitHub Release |
+| Published image | `ghcr.io/abhisheklakhani-it/ml-cicd-template:0.1.0`, pulls and runs natively on Apple Silicon (arm64) |
 
 ## Quick start
 
