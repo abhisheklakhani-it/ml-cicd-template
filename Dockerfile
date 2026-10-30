@@ -2,7 +2,7 @@
 # stage only gets the finished virtual environment and the trained model.
 ARG PYTHON_VERSION=3.12
 
-FROM ghcr.io/astral-sh/uv:0.13.5 AS uv
+FROM ghcr.io/astral-sh/uv:0.13.6 AS uv
 
 # ---------- builder: install dependencies, train the model ----------
 FROM python:${PYTHON_VERSION}-slim AS builder
